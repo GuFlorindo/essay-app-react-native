@@ -7,10 +7,8 @@ import {
   View,
   TextInput,
 } from 'react-native'
-import redacao from '../model/redacao'
 import Crud from '../banco/crud_rn'
 import Redacoes from './Redacoes'
-
 
 export default class Listagem extends Component
 {
@@ -18,7 +16,7 @@ export default class Listagem extends Component
     super(props)
     this.state = 
     {
-      tema : '',
+      tema : 'Sem tema ou manuscrito',
       introducao : '',
       desenvolvimento : '',
       conclusao : '',
@@ -27,6 +25,11 @@ export default class Listagem extends Component
     }
     this.listar()
   }
+  Remover = (id)=> {
+        const banco = new Crud()
+        banco.Remover(id)
+        this.listar()
+      }
 
   listar = ()=>{
     const banco = new Crud()
@@ -38,12 +41,6 @@ export default class Listagem extends Component
   
   }
 
-  inserir = (tema, introducao, desenvolvimento, conclusao, imagem)=>{
-    const redacaoNova = new redacao(tema, introducao, desenvolvimento, conclusao, imagem)
-    const banco = new Crud()
-    banco.Inserir(redacaoNova)
-    this.listar()
-  }
   render()
 {
   return(
